@@ -31,17 +31,24 @@ canvas_color = (255, 255, 255)
 pygame.display.set_caption("Kača")
 
 
-glava=pygame.Rect(240, 240, 10, 10)
+pygame.font.init()
+my_font = pygame.font.SysFont('Comic Sans MS', 30)
+game_over_text = my_font.render('Game over', False, (255, 69, 69))
+
+
+glava=pygame.Rect(240, 240, 20, 20)
 smer="gor"
 
-while not ex:
-    clock.tick(10)
 
-    canvas.fill(canvas_color)
+def igra():
+    while not ex:
+        clock.tick(5)
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            ex = True
+        canvas.fill(canvas_color)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                ex = True
 
         if pygame.key.get_pressed()[pygame.K_w]:
             smer="gor"
@@ -51,17 +58,34 @@ while not ex:
             smer="levo"
         elif pygame.key.get_pressed()[pygame.K_d]:
             smer="desno"
+        
+        if smer=="gor":
+            glava.y-=20
+        elif smer=="dol":
+            glava.y+=20
+        elif smer=="levo":
+            glava.x-=20
+        elif smer=="desno":
+            glava.x+=20
+        
+        
+        
+        if glava.y<0 or glava.y>480 or glava.x<0 or glava.x>480:
+            ex=True
+            canvas.blit(game_over_text, (170,220))
+            
+            
+
+        
+        
+        
+        
+        
+        pygame.draw.rect(canvas, (0, 255, 0), glava)
+        
+        pygame.display.update()
     
-    if smer=="gor":
-        glava.y-=10
-    elif smer=="dol":
-        glava.y+=10
-    elif smer=="levo":
-        glava.x-=10
-    elif smer=="desno":
-        glava.x+=10
-    
-    pygame.draw.rect(canvas, (0, 255, 0), glava)
-    
-    pygame.display.update()
-    
+
+
+igra()
+time.sleep(5)
