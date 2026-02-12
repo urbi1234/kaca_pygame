@@ -32,7 +32,7 @@ pygame.display.set_caption("Kača")
 
 pygame.font.init()
 my_font = pygame.font.SysFont('Comic Sans MS', 30)
-game_over_text = my_font.render('Game over', False, (255, 69, 69))
+
 
 
 
@@ -42,14 +42,18 @@ def igra():
     ex=False
     izguba=False
     game_over_text = my_font.render('Game over', False, (255, 69, 69))
+    barva="rdeča"
+    
     
     glava=pygame.Rect(240, 240, 20, 20)
     smer="gor"
     while not ex:
         clock.tick(5)
-
-        canvas.fill(canvas_color)
-
+        if barva=="rdeča":
+            canvas.fill((255, 255, 255))
+        else:
+            canvas.fill((0, 255, 0))
+            
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 ex = True
@@ -62,6 +66,11 @@ def igra():
             smer="levo"
         elif pygame.key.get_pressed()[pygame.K_d]:
             smer="desno"
+        elif pygame.key.get_pressed()[pygame.K_SPACE]:
+            if barva=="rdeča":
+                barva="zelena"
+            else:
+                barva="rdeča"
         
         if smer=="gor":
             glava.y-=20
@@ -71,12 +80,18 @@ def igra():
             glava.x-=20
         elif smer=="desno":
             glava.x+=20
+            
+        if barva=="rdeča":
+            canvas.fill((255, 255, 255))
+        else:
+            canvas.fill((0, 255, 0))
         
         
         
         if glava.y<0 or glava.y>480 or glava.x<0 or glava.x>480:
             ex=True
             izguba=True
+            
             canvas.blit(game_over_text, (170,220))
             
             
@@ -85,8 +100,10 @@ def igra():
         
         
         
-        
-        pygame.draw.rect(canvas, (0, 255, 0), glava)
+        if barva=="rdeča":
+            pygame.draw.rect(canvas, (0, 255, 0), glava)
+        else:
+            pygame.draw.rect(canvas, (255, 69, 69), glava)
         
         pygame.display.update()
     if izguba:
