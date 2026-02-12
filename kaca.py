@@ -20,7 +20,6 @@ import pygame
 import time
 import threading
 
-ex=False
 
 pygame.init()
 
@@ -36,11 +35,16 @@ my_font = pygame.font.SysFont('Comic Sans MS', 30)
 game_over_text = my_font.render('Game over', False, (255, 69, 69))
 
 
-glava=pygame.Rect(240, 240, 20, 20)
-smer="gor"
+
 
 
 def igra():
+    ex=False
+    izguba=False
+    game_over_text = my_font.render('Game over', False, (255, 69, 69))
+    
+    glava=pygame.Rect(240, 240, 20, 20)
+    smer="gor"
     while not ex:
         clock.tick(5)
 
@@ -72,6 +76,7 @@ def igra():
         
         if glava.y<0 or glava.y>480 or glava.x<0 or glava.x>480:
             ex=True
+            izguba=True
             canvas.blit(game_over_text, (170,220))
             
             
@@ -84,8 +89,27 @@ def igra():
         pygame.draw.rect(canvas, (0, 255, 0), glava)
         
         pygame.display.update()
+    if izguba:
+        time.sleep(5)
+    
     
 
+press_space_text = my_font.render('Pritisni presledek za začetek.', False, (255, 69, 69))
 
-igra()
-time.sleep(5)
+izhod=False
+while not izhod:
+    clock.tick(5)
+    canvas.fill(canvas_color)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            izhod = True
+    
+    if pygame.key.get_pressed()[pygame.K_SPACE]:
+            igra()
+            
+            
+            
+    canvas.blit(press_space_text, (75,220))
+    pygame.display.update()
+
+        
