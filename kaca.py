@@ -19,6 +19,7 @@
 import pygame
 import time
 import threading
+import random
 
 
 pygame.init()
@@ -34,6 +35,13 @@ pygame.font.init()
 my_font = pygame.font.SysFont('Comic Sans MS', 30)
 
 
+class hrana:
+    def __init__(self):
+        pass
+    def prestavi(self):
+        self.x=random.randint(0, 24)*20
+        self.y=random.randint(0, 24)*20
+
 
 
 
@@ -47,6 +55,11 @@ def igra():
     
     glava=pygame.Rect(240, 240, 20, 20)
     smer="gor"
+
+    hrana1=hrana()
+    hrana1.prestavi()
+    točke=0
+    
     while not ex:
         clock.tick(5)
         if barva=="rdeča":
@@ -71,7 +84,12 @@ def igra():
                 barva="zelena"
             else:
                 barva="rdeča"
-        
+
+        if glava.colliderect(pygame.Rect(hrana1.x, hrana1.y, 20, 20)):
+            hrana1.prestavi()
+            točke+=1
+    
+
         if smer=="gor":
             glava.y-=20
         elif smer=="dol":
@@ -97,7 +115,7 @@ def igra():
             
 
         
-        
+        pygame.draw.rect(canvas, (255, 69, 69), (hrana1.x, hrana1.y, 20, 20))
         
         
         if barva=="rdeča":
