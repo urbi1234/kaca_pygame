@@ -122,9 +122,24 @@ def igra():
             canvas.blit(game_over_text, (170,220))
             
             
-
+        števec=0
         for i in kača:
-            pygame.draw.rect(canvas, (255, 69, 69), i)
+            if barva=="rdeča":
+                if števec==0:
+                    pygame.draw.rect(canvas, (0, 255, 0), i)
+                elif števec%2==0:
+                    pygame.draw.rect(canvas, (255, 218, 65), i)
+                else:
+                    pygame.draw.rect(canvas, (255, 143, 65), i)
+            else:    
+                if števec==0:
+                    pygame.draw.rect(canvas, (255, 69, 69), i)
+                elif števec%2==0:
+                    pygame.draw.rect(canvas, (255, 218, 65), i)
+                else:
+                    pygame.draw.rect(canvas, (255, 143, 65), i)
+            števec+=1
+            
         pygame.draw.rect(canvas, (255, 69, 69), (hrana1.x, hrana1.y, 20, 20))
         
         if barva=="rdeča":
