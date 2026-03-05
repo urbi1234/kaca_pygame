@@ -52,7 +52,7 @@ def igra():
     izguba=False
     game_over_text = my_font.render('Game over', False, (255, 69, 69))
     barva="rdeča"
-    
+    dobitek=False
     
     glava=pygame.Rect(240, 240, 20, 20)
     smer="gor"
@@ -89,9 +89,11 @@ def igra():
         if glava.colliderect(pygame.Rect(hrana1.x, hrana1.y, 20, 20)):
             hrana1.prestavi()
             točke+=1
-            kača.insert(0, (glava.x, glava.y, 20, 20))
+            dobitek=True
     
-
+        if (hrana1.x, hrana1.y, 20, 20) in kača:
+            hrana1.prestavi()
+        
         if smer=="gor":
             glava.y-=20
             kača.insert(0, (glava.x, glava.y, 20, 20))
@@ -106,7 +108,10 @@ def igra():
             glava.x+=20
             kača.insert(0, (glava.x, glava.y, 20, 20))
         
-        kača.pop()
+        if not(dobitek):
+            kača.pop()
+        else:
+            dobitek=False
             
         if barva=="rdeča":
             canvas.fill((255, 255, 255))
@@ -120,7 +125,13 @@ def igra():
             izguba=True
             
             canvas.blit(game_over_text, (170,220))
+        
+        if len(kača) != len(set(kača)):
+            ex=True
+            izguba=True
             
+            canvas.blit(game_over_text, (170,220))
+        
             
         števec=0
         for i in kača:
