@@ -47,6 +47,7 @@ class hrana:
 
 
 def igra():
+    kača=[(240, 240, 20, 20)]
     ex=False
     izguba=False
     game_over_text = my_font.render('Game over', False, (255, 69, 69))
@@ -88,16 +89,24 @@ def igra():
         if glava.colliderect(pygame.Rect(hrana1.x, hrana1.y, 20, 20)):
             hrana1.prestavi()
             točke+=1
+            kača.insert(0, (glava.x, glava.y, 20, 20))
     
 
         if smer=="gor":
             glava.y-=20
+            kača.insert(0, (glava.x, glava.y, 20, 20))
         elif smer=="dol":
             glava.y+=20
+            kača.insert(0, (glava.x, glava.y, 20, 20))
+            
         elif smer=="levo":
             glava.x-=20
+            kača.insert(0, (glava.x, glava.y, 20, 20))
         elif smer=="desno":
             glava.x+=20
+            kača.insert(0, (glava.x, glava.y, 20, 20))
+        
+        kača.pop()
             
         if barva=="rdeča":
             canvas.fill((255, 255, 255))
@@ -114,9 +123,9 @@ def igra():
             
             
 
-        
+        for i in kača:
+            pygame.draw.rect(canvas, (255, 69, 69), i)
         pygame.draw.rect(canvas, (255, 69, 69), (hrana1.x, hrana1.y, 20, 20))
-        
         
         if barva=="rdeča":
             pygame.draw.rect(canvas, (0, 255, 0), glava)
