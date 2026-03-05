@@ -140,7 +140,7 @@ def igra():
                     pygame.draw.rect(canvas, (255, 143, 65), i)
             števec+=1
             
-        pygame.draw.rect(canvas, (255, 69, 69), (hrana1.x, hrana1.y, 20, 20))
+        pygame.draw.rect(canvas, (53, 114, 165), (hrana1.x, hrana1.y, 20, 20))
         
         if barva=="rdeča":
             pygame.draw.rect(canvas, (0, 255, 0), glava)
